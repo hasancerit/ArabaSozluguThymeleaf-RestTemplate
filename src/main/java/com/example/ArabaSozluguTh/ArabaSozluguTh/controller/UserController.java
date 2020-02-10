@@ -1,16 +1,26 @@
 package com.example.ArabaSozluguTh.ArabaSozluguTh.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.LoginUserReqDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.SingupUserReqDTO;
+import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.JWTUserResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.UserResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.service.UserService;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 	UserService userService;
@@ -20,12 +30,22 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	@GetMapping("a")
-	public String am() {
-		return "A";
+	@GetMapping("/signup")
+	public String signup(Model model) {
+		System.out.println("GET SİNGUP");
+		model.addAttribute("user",new SingupUserReqDTO());
+		return "userform";
 	}
 	
-	@GetMapping("/test")
+	@PostMapping("/signup")
+	public String signUp(@Valid @ModelAttribute SingupUserReqDTO user,Model model){
+		System.out.println("POST SİGNUP");
+		UserResDTO retUser = userService.signup(user);
+		model.addAttribute("id",retUser.getId());
+		return "basari";
+	}
+	
+/*	@GetMapping("/testAddUser")
 	public ResponseEntity<UserResDTO> signUp(){
 		System.out.println("USER TEST");
 		SingupUserReqDTO user = new SingupUserReqDTO();
@@ -34,6 +54,15 @@ public class UserController {
 		user.setUser("htnc13");
 		return new ResponseEntity<UserResDTO>(userService.signup(user),HttpStatus.OK);
 	}
+	
+	@GetMapping("/testLogin")
+	public ResponseEntity<JWTUserResDTO> login(){
+		LoginUserReqDTO user = new LoginUserReqDTO();
+		user.setUser("htnc13");
+		user.setPass("123");
+		return new ResponseEntity<JWTUserResDTO>(userService.login(user),HttpStatus.OK);
+	}
+*/
 
 /*
 	@PostMapping("/signup")

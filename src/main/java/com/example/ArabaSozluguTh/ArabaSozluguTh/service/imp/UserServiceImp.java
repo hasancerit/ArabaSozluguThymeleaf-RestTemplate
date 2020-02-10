@@ -46,8 +46,13 @@ public class UserServiceImp implements UserService{
 
 	@Override
 	public JWTUserResDTO login(LoginUserReqDTO user) {
-		// TODO Auto-generated method stub
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+		HttpEntity<LoginUserReqDTO> entity = new HttpEntity<LoginUserReqDTO>(user,headers);
+
+		return rest.exchange(
+		         "http://localhost:8080/user/login", HttpMethod.POST, entity, JWTUserResDTO.class).getBody();
 	}
 
 
