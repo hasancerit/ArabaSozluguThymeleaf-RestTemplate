@@ -34,15 +34,34 @@ public class UserController {
 	public String signup(Model model) {
 		System.out.println("GET SİNGUP");
 		model.addAttribute("user",new SingupUserReqDTO());
-		return "userform";
+		return "user/signup";
 	}
 	
 	@PostMapping("/signup")
 	public String signUp(@Valid @ModelAttribute SingupUserReqDTO user,Model model){
-		System.out.println("POST SİGNUP");
 		UserResDTO retUser = userService.signup(user);
-		model.addAttribute("id",retUser.getId());
-		return "basari";
+
+		LoginUserReqDTO userNew = new LoginUserReqDTO();
+		userNew.setUser(user.getUser());
+		
+		model.addAttribute("user",userNew);
+		return "user/login";
+	}
+	
+	
+	@GetMapping("/login")
+	public String login(Model model) {
+		LoginUserReqDTO userNew = new LoginUserReqDTO();
+		model.addAttribute("user",userNew);
+		return "user/login";
+	}
+	
+	@PostMapping("/login")
+	public String logIn(@Valid @ModelAttribute LoginUserReqDTO user,Model model){
+		System.out.println("Login Post");
+		JWTUserResDTO retUser = userService.login(user);
+		model.addAttribute("user",retUser);
+		return "user/giris";
 	}
 	
 /*	@GetMapping("/testAddUser")
