@@ -2,6 +2,7 @@ package com.example.ArabaSozluguTh.ArabaSozluguTh.model;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.management.relation.Role;
@@ -28,4 +29,5 @@ public class User{
 		car.setUser(this);
 		cars.add(car);
 	}
+	private List<Role> roles;
 }
