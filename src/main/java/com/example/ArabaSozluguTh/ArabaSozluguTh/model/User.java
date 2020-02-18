@@ -1,7 +1,11 @@
 package com.example.ArabaSozluguTh.ArabaSozluguTh.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.management.relation.Role;
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.EqualsAndHashCode;
@@ -11,7 +15,7 @@ import lombok.Setter;
 @EqualsAndHashCode(exclude = {"cars","posts"})
 @Setter
 @Getter
-public class User {
+public class User{
 	private String id;
 	private String name;
 	private String user;
@@ -23,5 +27,5 @@ public class User {
 	public void addCar(Car car) {
 		car.setUser(this);
 		cars.add(car);
-	}	
+	}
 }

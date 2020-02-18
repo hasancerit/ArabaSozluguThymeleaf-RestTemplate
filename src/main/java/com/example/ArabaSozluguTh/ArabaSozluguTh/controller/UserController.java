@@ -47,7 +47,7 @@ public class UserController {
 		model.addAttribute("user",userNew);
 		return "user/login";
 	}
-	
+		
 	
 	@GetMapping("/login")
 	public String login(Model model) {
@@ -56,12 +56,18 @@ public class UserController {
 		return "user/login";
 	}
 	
+	/*Spring Security /user/login post metodunu ezer
 	@PostMapping("/login")
 	public String logIn(@Valid @ModelAttribute LoginUserReqDTO user,Model model){
 		System.out.println("Login Post");
 		JWTUserResDTO retUser = userService.login(user);
 		model.addAttribute("user",retUser);
-		return "user/giris";
+		return "user/hello";
+	}*/
+	
+	@GetMapping("/hello")
+	public String giris(){
+		return "hello";
 	}
 	
 /*	@GetMapping("/testAddUser")
