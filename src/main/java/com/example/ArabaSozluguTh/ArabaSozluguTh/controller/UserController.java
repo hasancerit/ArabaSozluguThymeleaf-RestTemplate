@@ -3,21 +3,16 @@ package com.example.ArabaSozluguTh.ArabaSozluguTh.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.LoginUserReqDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.SingupUserReqDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.JWTUserResDTO;
-import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.UserResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.service.UserService;
 
 @Controller
@@ -39,7 +34,7 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	public String signUp(@Valid @ModelAttribute SingupUserReqDTO user,Model model){
-		UserResDTO retUser = userService.signup(user);
+		userService.signup(user);
 
 		LoginUserReqDTO userNew = new LoginUserReqDTO();
 		userNew.setUser(user.getUser());
@@ -56,14 +51,12 @@ public class UserController {
 		return "user/login";
 	}
 	
-	/*Spring Security /user/login post metodunu ezer
-	@PostMapping("/login")
-	public String logIn(@Valid @ModelAttribute LoginUserReqDTO user,Model model){
+	/*Spring Security /user/handlelogin post metodunu ezer,(.loginProcessingUrl("/user/handlelogin"))*/
+	@PostMapping("/handlelogin")
+	public String logIn(){
 		System.out.println("Login Post");
-		JWTUserResDTO retUser = userService.login(user);
-		model.addAttribute("user",retUser);
 		return "user/hello";
-	}*/
+	}
 	
 	@GetMapping("/hello")
 	public String giris(){

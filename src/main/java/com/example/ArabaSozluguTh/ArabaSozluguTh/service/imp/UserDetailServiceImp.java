@@ -1,7 +1,5 @@
 package com.example.ArabaSozluguTh.ArabaSozluguTh.service.imp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +9,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.SingupUserReqDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.UserResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.model.security.Role;
 
@@ -40,6 +36,7 @@ public class UserDetailServiceImp implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println("LOAD BY USER NAMEE:"+username);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		
@@ -58,8 +55,6 @@ public class UserDetailServiceImp implements UserDetailsService{
 		
 		Set<GrantedAuthority> roles = new HashSet<>();
 		for(Role r : response.getRoles()) {
-			System.out.println("ROLLER");
-			System.out.println(r.getRole());
 			roles.add(new SimpleGrantedAuthority(r.getRole()));
 		}
 		        
