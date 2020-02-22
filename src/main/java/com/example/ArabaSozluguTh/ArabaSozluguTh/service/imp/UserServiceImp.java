@@ -14,10 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.LoginUserReqDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.SingupUserReqDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.UserReqDTO;
+import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.post.PostResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.JWTUserResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.UserResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.model.security.Role;
@@ -29,6 +31,7 @@ public class UserServiceImp implements UserService{
 	//JavaMailSender mailSender;
 	RestTemplate rest;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 
 	@Autowired
@@ -80,8 +83,20 @@ public class UserServiceImp implements UserService{
 
 	@Override
 	public UserResDTO getUser(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		
+		String url = "http://localhost:8080/user/get/"+id;
+		
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		UserResDTO res = rest.exchange(
+		        url, 
+		        HttpMethod.GET, 
+		        entity, 
+		        UserResDTO.class).getBody();
+		
+		return res;
 	}
 
 
@@ -110,6 +125,27 @@ public class UserServiceImp implements UserService{
 	public UserResDTO findUserByPost(String postId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public UserResDTO findUserByUsername(String username) {HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		
+		String url = "http://localhost:8080/user/findByUsername";
+		
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+		        .queryParam("username", username);
+	
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+	
+		UserResDTO response = rest.exchange(
+		        builder.toUriString(), 
+		        HttpMethod.GET, 
+		        entity, 
+		        UserResDTO.class).getBody();
+		
+		return response;
 	}
 	
 	

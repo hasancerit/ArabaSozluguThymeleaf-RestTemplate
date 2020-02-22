@@ -1,6 +1,8 @@
 package com.example.ArabaSozluguTh.ArabaSozluguTh.model;
 
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.EqualsAndHashCode;
@@ -18,4 +20,6 @@ public class Post {
 	@JsonManagedReference
 	private User user;
 	private Car car;
+	private String baslik;
+	private String tarih;
 }

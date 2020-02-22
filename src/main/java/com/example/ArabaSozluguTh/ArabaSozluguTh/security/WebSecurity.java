@@ -1,8 +1,6 @@
 package com.example.ArabaSozluguTh.ArabaSozluguTh.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,10 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.ArabaSozluguTh.ArabaSozluguTh.security.filters.AuthenticationFilter;
+import com.example.ArabaSozluguTh.ArabaSozluguTh.security.handlers.LoginSuccessHandler;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter{
@@ -25,7 +23,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
+	private LoginSuccessHandler loginSuccessHandler;
+	
+	@Autowired
 	AccessDeniedHandler accessDeniedHandler;
+	
 	
 	public AuthenticationFilter authenticationFilter() throws Exception {
 		AuthenticationFilter filter = new AuthenticationFilter();
@@ -44,11 +46,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 				.antMatchers("/admin").hasAuthority("ADMIN")
 				.antMatchers("/user").hasAnyAuthority("ADMIN","USER")
 				.and()
-				.addFilterAt(authenticationFilter(),UsernamePasswordAuthenticationFilter.class)
+				//.addFilterAt(authenticationFilter(),UsernamePasswordAuthenticationFilter.class)
 			.formLogin()
 				.loginPage("/user/login")
 /*Sayfa LoginPage'e yönleneceği zaman buraya GET istegi at. Bunun metodunu biz yazarız ve yönlendirmek istediğimiz sayfaya yönlendiririz*/
 				.loginProcessingUrl("/user/handlelogin")
+				.successHandler(loginSuccessHandler)
  /*LoginPage'teki form, post isteğini buraya atmak zorundadır.Bu post metodunu biz yazmayız,spring sunar, yazsak bile spring ezer.*/
 				.permitAll()      
 				.and()

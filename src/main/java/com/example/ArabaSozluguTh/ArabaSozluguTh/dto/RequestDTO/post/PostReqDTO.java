@@ -22,4 +22,10 @@ public class PostReqDTO {
 	
 	@NotNull
 	private String fiyat;
+	
+	@NotNull
+	private String baslik;
+	
+	@NotNull
+	private String tarih;
 }

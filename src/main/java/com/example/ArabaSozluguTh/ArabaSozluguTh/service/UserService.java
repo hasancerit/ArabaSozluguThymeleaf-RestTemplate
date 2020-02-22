@@ -23,5 +23,7 @@ public interface UserService {
 	UserResDTO updateUser(UserReqDTO user, String id);
 
 	UserResDTO findUserByPost(String postId);
+	
+	UserResDTO findUserByUsername(String username);
 
 }

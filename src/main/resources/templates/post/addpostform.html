@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Post Form</title>
+
+    <!-- Web Jars -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" />
+    <script src="/webjars/jquery/4.4.1/jquery.min.js"></script>
+    <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+    
+    <style>
+    textarea.form-control:active,
+	textarea.form-control:focus,
+	textarea.form-control:focus:active,
+    textarea.form-control,
+    input.form-control:active,
+	input.form-control:focus,
+	input.form-control:focus:active,
+    input.form-control{
+    	background-color: #ededed;
+     	border : 1px solid #a9a9a9;     	
+    }
+    
+    body {
+    	color : black;
+    }
+    
+    </style>
+	
+</head>
+
+<body class = "bg-white">
+    <div class="container" style="margin-top: 20px" >
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+             <form th:object="${post}" th:action="@{/post/add}" method="post">
+               <div class="form-group">
+               		<input type="hidden" th:field="*{tarih}" value="${post.tarih}"/>
+               		<input type="hidden" th:field="*{userId}" value="${post.userId}"/>
+            		
+            		<h2 class = "text-center mb-5"> İlan Ver </h2>
+            		
+         			<div class="row align-items-center justify-content-center mb-3">
+                        <div class="col-md-3 px-0">
+                            <input type="text" th:field="*{baslik}" placeholder = "Baslik" class="form-control cus-inp text-center"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center justify-content-center mb-5">
+                        <div class="col-md-3 px-0">
+                            <input type="text" th:field="*{car.modelAdi}" placeholder = "Model Adı" class="form-control cus-inp"/>
+                        </div>
+                        <div class="col-md-3 offset-md-1 px-0">
+                            <input type="text" th:field="*{car.yakıt}" placeholder = "Yakıt" class="form-control cus-inp"/>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row align-items-center justify-content-center mb-3">
+                        <div class="col-md-3 px-0">
+                            <input type="text" th:field="*{car.vites}" placeholder = "Vites" class="form-control cus-inp"/>
+                        </div>
+                        <div class="col-md-3 offset-md-1 px-0">
+							<input type="text" th:field="*{car.silindirHacmi}" placeholder = "Silindir" class="form-control cus-inp"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center justify-content-center mb-3">
+                        <div class="col-md-3 px-0">
+                            <input type="text" th:field="*{car.yas}" placeholder = "Yaş" class="form-control cus-inp"/>
+                        </div>
+                        <div class="col-md-3 offset-md-1 px-0">
+							<input type="text" th:field="*{car.beygir}" placeholder = "Ekstra" class="form-control cus-inp"/>
+                        </div>
+                    </div>
+                    
+                     <div class="row align-items-center justify-content-center mb-3">
+                     
+                        <div class="col-md-7 px-0 mb-3">
+                            <textarea placeholder = "Aciklama" th:field="*{aciklama}" class="form-control" rows="5" cols="5"></textarea>
+                        </div>
+                        
+                        <div class="col-md-7 px-0">
+                            <input type="text" th:field="*{fiyat}" placeholder = "Fiyat" class="form-control cus-inp"/>
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class = "row justify-content-center">
+                    	<div class = "col-md-7 px-0">
+                    		<button type="submit" class="btn mt-3 form-control bg-dark" style="width: 100%;color : white;">Paylaş</button>  
+                    	</div>
+                    </div>
+             </div>
+            </form>
+            </div>
+         </div>
+    </div>
+</body>
+
+</html>

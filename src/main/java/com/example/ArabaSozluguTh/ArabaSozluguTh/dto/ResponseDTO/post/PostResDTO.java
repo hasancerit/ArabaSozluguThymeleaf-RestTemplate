@@ -1,6 +1,8 @@
 package com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.post;
 
 
+import javax.validation.constraints.NotNull;
+
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.car.CarResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,4 +23,10 @@ public class PostResDTO {
 	public void setUserId() {	
 		userId = user.getId();
 	}
+	
+	@NotNull
+	private String baslik;
+	
+	@NotNull
+	private String tarih;
 }
