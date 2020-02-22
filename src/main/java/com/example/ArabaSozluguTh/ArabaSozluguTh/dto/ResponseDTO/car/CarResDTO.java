@@ -6,7 +6,7 @@ import lombok.Data;
 public class CarResDTO {
 	private String id;
 	private String modelAdi;
-	private String yakıt;
+	private String yakit;
 	private String vites;
 	private String silindirHacmi;
 	private String beygir;

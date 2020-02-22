@@ -9,13 +9,14 @@ import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperti
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.post.PostResDTO;
+import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.UserResDTO;
+import com.example.ArabaSozluguTh.ArabaSozluguTh.model.User;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.service.PostService;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.service.UserService;
 
@@ -30,17 +31,16 @@ public class MainController {
 	@GetMapping("/main")
 	public String hello(@AuthenticationPrincipal User user,Model model) {
 		List<PostResDTO> posts = postService.getAll();
-		List<String> names = new ArrayList<String>();
 		
 		
 		//Değişecek.
 		for(PostResDTO p : posts) {
-			System.out.println((userService.getUser(p.getUserId())).getUser());
-			names.add(userService.getUser(p.getUserId()).getUser());
+			System.out.println(p.getId());
+			UserResDTO userRes = userService.getUser(p.getUserId());
+			p.setUserRes(userRes);
 		}
 		
 		model.addAttribute("posts",posts);
-		model.addAttribute("names",names);
 		return "mainpage";
 	}
 	

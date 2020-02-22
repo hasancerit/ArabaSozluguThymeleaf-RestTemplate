@@ -46,8 +46,19 @@ public class PostServiceImp implements PostService{
 
 	@Override
 	public PostResDTO getPost(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		
+		String url = "http://localhost:8080/post/get/"+id;
+		
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		PostResDTO res= rest.exchange(
+		        url, 
+		        HttpMethod.GET, 
+		        entity, 
+		        PostResDTO.class).getBody();
+		return res;
 	}
 
 	@Override
