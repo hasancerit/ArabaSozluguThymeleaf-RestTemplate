@@ -3,12 +3,51 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Hello</title>
-    
-        <!-- Web Jars -->
+    <title>User Form</title>
+
+
+    <!-- Web Jars -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}" />
     <script src="/webjars/jquery/4.4.1/jquery.min.js"></script>
     <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+        
+    
+    <style type="text/css">
+		@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+		body
+		{
+		    font-family: 'Lato', 'sans-serif';
+		    }
+		.profile 
+		{
+			min-width:50%;
+		    min-height: 200px;
+		    display: inline-block;
+		    color:white;
+		    font-size: 12px;
+		    }
+		  
+		 
+		 .btn-light{
+		 	color:black;
+		 }
+		
+		.divider 
+		{
+		    border-top:1px solid #808080;
+		}
+		    
+		    
+		.emphasis 
+		{
+		    border-top: 4px solid transparent;
+		    }
+		.emphasis h2
+		{
+		    margin-bottom:0;
+		    }
+		    		    
+    </style>
 </head>
 
 <body>
@@ -21,7 +60,7 @@
 	
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item active">
+	      <li class="nav-item">
 	        <a class="nav-link" th:href="@{/main}">Anasayfa</a>
 	      </li>
 	      <li class="nav-item">
@@ -31,24 +70,52 @@
 	        <a class="nav-link" th:href="@{/post/add}">İlan Ver</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" th:href="@{/profile}">Profil</a>
+	        <a class="nav-link active" th:href="@{/profile}">Profil</a>
 	      </li>
 	    </ul>
 	    <form class="form-inline my-2 my-lg-0">
       		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      		<button class="btn btn-outline-gray my-2 my-sm-0" type="submit">Search</button>
     	</form>
 	  </div>
 	</nav>
 	
-	<div class = "container mt-5">
+	<div class="container">
+		<div class="row">
+			<div class="text-center col-md-12 col-lg-12 mt-5">
+	    	 <div class="profile well pt-3 bg-dark">
+	    	 
+	            <div class="offset-sm-4 col-sm-4 text-center" >
+	                    <h2 th:text="${user.name}">Nicole Pearson</h2>
+	                    <p><strong>Bilgi1: </strong> Değer1 </p>
+	                    <p><strong>Bilgi2: </strong> Değer2 </p>
+	                    <p><strong>Bilgi3:</strong> Değer3 </p>
+	            </div>   
+	                     
+	            <div class="col-xs-12 divider text-center mb-3">
+	                <div class="emphasis">
+	                	<h2><button type="button" class="btn btn-light" style="width: 60%"> Kaydedilenler </button></h2>
+	                </div>
+	                <div class="emphasis">
+	                	<h2><button type="button" class="btn btn-light" style="width: 60%"><span class="fa fa-gear"></span> Profili Düzenle </button></h2>
+	                </div>
+	                <div class="emphasis">
+	                	<h2><button type="button" class="btn btn-light" style="width: 60%"><span class="fa fa-gear"></span> Ayarlar </button></h2>
+					</div>
+	                </div>
+	            </div>
+	    	 </div>                 
+			</div>
+			
+			
+				<div class = "container mt-5">
 		<th:block th:each="post : ${posts}">
 		  	<div class="row mb-2">
 		        <div class="col-md-6">
 		          <div class="card flex-md-row mb-4 box-shadow h-md-250">
 		            <div class="card-body d-flex flex-column align-items-start">
 		            														
-		              <a class="d-inline-block mb-2 text-success"  th:href="'user/'+${post.userRes.id}"   th:text="${post.userRes.user}"> <strong>User</strong></a>
+		              <a class="d-inline-block mb-2 text-success" href="/s"  th:text="${post.userRes.user}"> <strong>User</strong></a>
 		              
 		              <h3 class="mb-0">
 	 		                <p class="text-dark" th:text="${post.baslik}"> Baslik </p>
@@ -95,6 +162,8 @@
 	      	</div>
 	    </th:block>
 	</div>
+			
+		</div>
 </body>
 
 </html>

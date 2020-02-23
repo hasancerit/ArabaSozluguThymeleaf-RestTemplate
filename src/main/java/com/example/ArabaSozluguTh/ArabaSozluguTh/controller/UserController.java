@@ -1,5 +1,7 @@
 package com.example.ArabaSozluguTh.ArabaSozluguTh.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.LoginUserReqDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.RequestDTO.user.SingupUserReqDTO;
+import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.post.PostResDTO;
+import com.example.ArabaSozluguTh.ArabaSozluguTh.dto.ResponseDTO.user.UserResDTO;
 import com.example.ArabaSozluguTh.ArabaSozluguTh.service.UserService;
 
 @Controller
@@ -61,6 +66,21 @@ public class UserController {
 	public String giris(){
 		return "hello";
 	}
+
+	
+	@GetMapping("/{id}")
+	public String profileOthers(Model model,Principal p,@PathVariable String id) {
+		UserResDTO user = userService.getUser(id);
+		
+		for(PostResDTO post : user.getPosts()) {
+			post.setUserRes(user);
+		}
+		model.addAttribute("user",user);
+		model.addAttribute("posts",user.getPosts());
+
+		return "user/othersprofile";
+	}
+
 	
 /*	@GetMapping("/testAddUser")
 	public ResponseEntity<UserResDTO> signUp(){
